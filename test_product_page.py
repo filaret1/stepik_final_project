@@ -6,7 +6,7 @@ import pytest
 @pytest.mark.parametrize('promo_offer', ["?promo=offer0", "?promo=offer1", "?promo=offer2", "?promo=offer3", "?promo=offer4", "?promo=offer5", "?promo=offer6", pytest.param("?promo=offer7", marks=pytest.mark.xfail(reason="fixing this bug right now")), "?promo=offer8", "?promo=offer9"])
 @pytest.mark.need_review
 def test_guest_can_add_product_to_basket(browser, promo_offer):
-    link ='http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019'
+    link = f"http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/{promo_offer}"
     page = ProductPage(browser, link)
     page.open()
     page.guest_can_add_product_to_basket()
