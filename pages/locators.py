@@ -1,21 +1,21 @@
 from selenium.webdriver.common.by import By
 
-
 class MainPageLocators():
     LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
 
 class LoginPageLocators():
-    LOGIN_URL = (By.CSS_SELECTOR, "#login_link")
     LOGIN_FORM = (By.CSS_SELECTOR, "#login_form")
     REGISTER_FORM = (By.CSS_SELECTOR, "#register_form")
-
+    REGISTER_NEW_USER_EMAIL = (By.CSS_SELECTOR, "#id_registration-email")
+    REGISTER_NEW_USER_PASSWORD1 = (By.CSS_SELECTOR, "#id_registration-password1")
+    REGISTER_NEW_USER_PASSWORD2 = (By.CSS_SELECTOR, "#id_registration-password2")
+    REGISTER_NEW_USER_BUTTON_SUBMIT = (By.CSS_SELECTOR, "button[name=\"registration_submit\"]")
 class ProductPageLocators():
-    ADD_TO_BASKET = (By.CSS_SELECTOR, ".btn-add-to-basket")
-    PRODUCT_NAME_IN_BASKET = (By.CSS_SELECTOR, "#messages div.alertinner strong")
-    PRODUCT_NAME_IN_STORE = (By.CSS_SELECTOR, "#content_inner h1:first-child")
-    PRODUCT_PRICE_BASKET = (By.CSS_SELECTOR, ".alert-info p:first-child strong")
-    PRODUCT_PRICE_STORE = (By.CSS_SELECTOR, "#content_inner p.price_color")
-    SUCCESS_MESSAGE = (By.CSS_SELECTOR, "#messages div.alertinner")
+    ADD_BUTTON = (By.XPATH, "//button[@class='btn btn-lg btn-primary btn-add-to-basket']")
+    ADDED_PRODUCT = (By.CSS_SELECTOR, "div.alertinner strong")
+    PRODUCT_NAME = (By.TAG_NAME, "h1")
+    PRODUCT_PRICE = (By.XPATH, "//p[@class='price_color']")
+    CART_PRICE = (By.XPATH, "//div[@class='alertinner ']/p/strong")
 
 class BasePageLocators():
     LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
