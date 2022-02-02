@@ -22,61 +22,51 @@ class TestUserAddToBasketFromProductPage:
         link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207"
         page = ProductPage(browser, link)
         page.open()
-        page.add_to_cart()
-        page.solve_quiz_and_get_code()
-        page.product_name_is_correct()
-        page.should_be_correct_adding_product_price()
+        page.add_item_to_basket()
+        page.should_be_correct_item_in_the_basket()
+        page.should_be_correct_basket_cost()
 
     def test_user_cant_see_success_message(self, browser):
         link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207"
         page = ProductPage(browser, link)
         page.open()
-        page.should_not_be_success_message()
+        page.should_not_be_success_message_item_added_text()
 
 
-@pytest.mark.parametrize('promo_offer',
-                         ["?promo=offer0", "?promo=offer1", "?promo=offer2", "?promo=offer3", "?promo=offer4",
-                          "?promo=offer5", "?promo=offer6",
-                          pytest.param("?promo=offer7", marks=pytest.mark.xfail(reason="fixing this bug right now")),
-                          "?promo=offer8", "?promo=offer9"])
 @pytest.mark.need_review
-def test_guest_can_add_product_to_basket(browser, promo_offer):
-    link = f"http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/{promo_offer}"
+def test_guest_can_add_product_to_basket(browser):
+    link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
     page = ProductPage(browser, link)
     page.open()
-    page.add_to_cart()
-    page.solve_quiz_and_get_code()
-    page.product_name_is_correct()
-    page.should_be_correct_adding_product_price()
+    page.add_item_to_basket()
+    page.should_be_correct_item_in_the_basket()
+    page.should_be_correct_basket_cost()
 
 
-@pytest.mark.xfail
+@pytest.mark.skip
 def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
     link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019"
     page = ProductPage(browser, link)
     page.open()
-    page.add_to_cart()
-    page.solve_quiz_and_get_code()
-    page.should_not_be_success_message()
+    page.add_item_to_basket()
+    page.should_not_be_success_message_item_added_text()
 
-
+@pytest.mark.skip
 def test_guest_cant_see_success_message(browser):
     link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019"
     page = ProductPage(browser, link)
     page.open()
-    page.should_not_be_success_message()
+    page.should_not_be_success_message_item_added_text()
 
 
-@pytest.mark.xfail
+@pytest.mark.skip
 def test_message_disappeared_after_adding_product_to_basket(browser):
     link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019"
     page = ProductPage(browser, link)
     page.open()
-    page.add_to_cart()
-    page.solve_quiz_and_get_code()
-    page.success_message_is_disappeared()
+    page.should_message_disappeared_item_added_text()
 
-
+@pytest.mark.skip
 def test_guest_should_see_login_link_on_product_page(browser):
     link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
     page = ProductPage(browser, link)
@@ -86,7 +76,7 @@ def test_guest_should_see_login_link_on_product_page(browser):
 
 @pytest.mark.need_review
 def test_guest_can_go_to_login_page_from_product_page(browser):
-    link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
+    link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
     page = ProductPage(browser, link)
     page.open()
     page.go_to_login_page()
@@ -94,10 +84,12 @@ def test_guest_can_go_to_login_page_from_product_page(browser):
 
 @pytest.mark.need_review
 def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
-    link = "http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209?promo=midsummer"
+    link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
     page = ProductPage(browser, link)
     page.open()
-    page.go_to_cart()
+    page.go_to_basket_page()
     basket_page = BasketPage(browser, browser.current_url)
-    basket_page.basket_is_empty()
-    basket_page.basket_null_text()
+    basket_page.should_not_be_items_in_basket()
+    basket_page.should_be_message_basket_is_empty()
+
+#  pytest -s -v --tb=line --language=en test_product_page.py -m need_review
