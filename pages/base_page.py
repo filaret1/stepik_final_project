@@ -44,12 +44,7 @@ class BasePage():
             return False
         return True
 
-    def is_element_present(self, how, what):
-        try:
-            self.browser.find_element(how, what)
-        except (NoSuchElementException):
-            return False
-        return True
+
 
     def is_not_element_present(self, how, what, timeout=4):
         try:
@@ -65,3 +60,7 @@ class BasePage():
     def should_be_login_link(self):
         assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link is not presented"
 
+    def go_to_cart(self):
+        assert self.is_element_present(*BasePageLocators.BASKET_LINK)
+        link = self.browser.find_element(*BasePageLocators.BASKET_LINK)
+        link.click()
